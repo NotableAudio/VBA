@@ -1,0 +1,19 @@
+'-----------------------------------------------------------------------------
+' True if the argument is Nothing, Null, Empty, Missing or an empty string .
+'-----------------------------------------------------------------------------
+Public Function IsBlank(arg As Variant) As Boolean
+    Select Case VarType(arg)
+        Case vbEmpty
+            IsBlank = True
+        Case vbNull
+            IsBlank = True
+        Case vbString
+            IsBlank = (LenB(arg) = 0)
+        Case vbObject
+            IsBlank = (arg Is Nothing)
+        Case Else
+            IsBlank = IsMissing(arg)
+    End Select
+End Function
+
+'From Renaud Bompuis; http://blog.nkadesign.com/2009/access-checking-blank-variables/
