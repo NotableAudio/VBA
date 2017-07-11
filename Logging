@@ -1,0 +1,39 @@
+Option Explicit
+
+'Update log path below
+'Call: If Not LogMessage("") Then ON_ERROR
+
+Global gstrLogPath As String
+
+Public Function InitiateLog As Boolean
+	
+	gstrLogPath = "C:\test.txt"
+	gstrDelimiter = GetGalactic(gstrDelimiter)
+	
+End Sub
+
+Public Function LogMessage(strMessage As String) As Boolean
+
+	On Error GoTo ON_ERROR
+
+	FF = FreeFile
+	
+	Open gstrLogPath For Output As #1
+	Write #1, Now() & gstrDelimiter _
+		& Environ("USERNAME") & gstrDelimiter _
+		& Environ("COMPUTERNAME") & gstrDelimiter _
+		& strMessage
+	
+	Close #1
+	
+	Return TRUE
+	
+	Exit Sub
+	
+ON_ERROR:
+	MsgBox "Could not write to log file. Arg: " & strMessage & "; " _
+		& Error: " & Err.Number & "; " & Err.Description
+	Close #1	
+	Return FALSE
+
+End Sub
