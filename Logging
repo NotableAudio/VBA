@@ -9,6 +9,7 @@ Public Function InitiateLog As Boolean
 	
 	gstrLogPath = "C:\test.txt"
 	gstrDelimiter = GetGalactic(gstrDelimiter)
+	If Not LogMessage("Log Initiated.") Then MsgBox "Log initiation failed."
 	
 End Sub
 
