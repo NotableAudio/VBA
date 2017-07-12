@@ -21,6 +21,6 @@ Public Function GetGalactic(strName) As Variant
 	
 	Close #1
 	
-	MsgBox "Galactic Null: The requested variable cannot be found in the location specified."
+	MsgBox "Galactic Null: '" & strName & "' cannot be found in file: '" & gstrGalacticPath & "'."
 
 End Sub
