@@ -1,13 +1,11 @@
 Option Explicit
 
-'Update log path below
-'Call: If Not LogMessage("") Then ON_ERROR
-
 Global gstrLogPath As String
+Global gstrDelimiter As String
 
-Public Function InitiateLog As Boolean
+Public Function InitiateLog() As Boolean
 	
-	gstrLogPath = "C:\test.txt"
+	gstrLogPath = GetGalactic(gstrLogPath)
 	gstrDelimiter = GetGalactic(gstrDelimiter)
 	If Not LogMessage("Log Initiated.") Then MsgBox "Log initiation failed."
 	
@@ -15,9 +13,7 @@ End Sub
 
 Public Function LogMessage(strMessage As String) As Boolean
 
-	On Error GoTo ON_ERROR
-
-	FF = FreeFile
+	On Error GoTo PROC_ERR
 	
 	Open gstrLogPath For Output As #1
 	Write #1, Now() & gstrDelimiter _
@@ -29,11 +25,13 @@ Public Function LogMessage(strMessage As String) As Boolean
 	
 	Return TRUE
 	
-	Exit Sub
+Exit Sub
 	
-ON_ERROR:
+PROC_ERR:
+
 	MsgBox "Could not write to log file. Arg: " & strMessage & "; " _
-		& Error: " & Err.Number & "; " & Err.Description
+		& "Log Path: " & gstrLogPath & "; " _
+		& "Error: " & Err.Number & "; " & Err.Description
 	Close #1	
 	Return FALSE
 
