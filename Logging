@@ -7,13 +7,18 @@ Public Function InitiateLog() As Boolean
 	
 	gstrLogPath = GetGalactic(gstrLogPath)
 	gstrDelimiter = GetGalactic(gstrDelimiter)
-	If Not LogMessage("Log Initiated.") Then MsgBox "Log initiation failed."
+	
+	If LogMessage("Log Initiated.") Then
+		Return TRUE
+	Else
+		Return FALSE
+	End If
 	
 End Sub
 
 Public Function LogMessage(strMessage As String) As Boolean
 
-	On Error GoTo PROC_ERR
+On Error GoTo PROC_ERR
 	
 	Open gstrLogPath For Output As #1
 	Write #1, Now() & gstrDelimiter _
@@ -32,7 +37,9 @@ PROC_ERR:
 	MsgBox "Could not write to log file. Arg: " & strMessage & "; " _
 		& "Log Path: " & gstrLogPath & "; " _
 		& "Error: " & Err.Number & "; " & Err.Description
-	Close #1	
+		
+	Close #1
+	
 	Return FALSE
 
 End Sub
