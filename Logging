@@ -5,8 +5,8 @@ Global gstrDelimiter As String
 
 Public Function InitiateLog() As Boolean
 	
-	gstrLogPath = GetGalactic(gstrLogPath)
-	gstrDelimiter = GetGalactic(gstrDelimiter)
+	gstrLogPath = GetGalactic("gstrLogPath")
+	gstrDelimiter = GetGalactic("gstrDelimiter")
 	
 	If LogMessage("Log Initiated.") Then
 		Return TRUE
